@@ -4593,11 +4593,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\Mocking\\FakeAxeAndDummy.Tests\\FakeAxeAndDummy.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\MockingAndTDD\\FakeAxeAndDummy.Tests\\FakeAxeAndDummy.Tests.csproj",
       "projectName": "FakeAxeAndDummy.Tests",
-      "projectPath": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\Mocking\\FakeAxeAndDummy.Tests\\FakeAxeAndDummy.Tests.csproj",
+      "projectPath": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\MockingAndTDD\\FakeAxeAndDummy.Tests\\FakeAxeAndDummy.Tests.csproj",
       "packagesPath": "C:\\Users\\Sony Vaio\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\Mocking\\FakeAxeAndDummy.Tests\\obj\\",
+      "outputPath": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\MockingAndTDD\\FakeAxeAndDummy.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",

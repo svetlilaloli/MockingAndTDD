@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\Mocking\\INStock.Tests\\INStock.Tests.csproj": {}
+    "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\MockingAndTDD\\INStock.Tests\\INStock.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\Mocking\\INStock.Tests\\INStock.Tests.csproj": {
+    "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\MockingAndTDD\\INStock.Tests\\INStock.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\Mocking\\INStock.Tests\\INStock.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\MockingAndTDD\\INStock.Tests\\INStock.Tests.csproj",
         "projectName": "INStock.Tests",
-        "projectPath": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\Mocking\\INStock.Tests\\INStock.Tests.csproj",
+        "projectPath": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\MockingAndTDD\\INStock.Tests\\INStock.Tests.csproj",
         "packagesPath": "C:\\Users\\Sony Vaio\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\Mocking\\INStock.Tests\\obj\\",
+        "outputPath": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\MockingAndTDD\\INStock.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",

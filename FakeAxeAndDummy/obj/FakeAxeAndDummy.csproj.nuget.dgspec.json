@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\Mocking\\FakeAxeAndDummy\\FakeAxeAndDummy.csproj": {}
+    "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\MockingAndTDD\\FakeAxeAndDummy\\FakeAxeAndDummy.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\Mocking\\FakeAxeAndDummy\\FakeAxeAndDummy.csproj": {
+    "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\MockingAndTDD\\FakeAxeAndDummy\\FakeAxeAndDummy.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\Mocking\\FakeAxeAndDummy\\FakeAxeAndDummy.csproj",
+        "projectUniqueName": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\MockingAndTDD\\FakeAxeAndDummy\\FakeAxeAndDummy.csproj",
         "projectName": "FakeAxeAndDummy",
-        "projectPath": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\Mocking\\FakeAxeAndDummy\\FakeAxeAndDummy.csproj",
+        "projectPath": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\MockingAndTDD\\FakeAxeAndDummy\\FakeAxeAndDummy.csproj",
         "packagesPath": "C:\\Users\\Sony Vaio\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\Mocking\\FakeAxeAndDummy\\obj\\",
+        "outputPath": "C:\\Users\\Sony Vaio\\Desktop\\C#\\OOP\\MockingAndTDD\\FakeAxeAndDummy\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
