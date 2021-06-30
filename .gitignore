@@ -9,8 +9,6 @@
 *.user
 *.userosscache
 *.sln.docstates
-*.suo
-*.user
 _ReSharper.*
 bin
 obj
