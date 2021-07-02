@@ -1,16 +1,24 @@
 ﻿using FakeAxeAndDummy;
+using System.Runtime.CompilerServices;
 
-public class Hero
+[assembly: InternalsVisibleTo("FakeAxeAndDummy.Tests")]
+public class Hero : IHero
 {
     private string name;
     private int experience;
     private IWeapon weapon;
 
+    internal Hero(string name, IWeapon weapon)
+    {
+        this.name = name;
+        this.experience = 0;
+        this.weapon = weapon;
+    }
     public Hero(string name)
     {
         this.name = name;
         this.experience = 0;
-        this.weapon = new Axe(10, 10);
+        this.weapon = WeaponFactory.CreateWeapon(10, 10);
     }
 
     public string Name

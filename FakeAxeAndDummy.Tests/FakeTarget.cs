@@ -1,8 +1,8 @@
 ﻿using FakeAxeAndDummy;
 
-internal class FakeDummy : ITarget
+internal class FakeTarget : ITarget
 {
-    public FakeDummy()
+    public FakeTarget()
     {
     }
 

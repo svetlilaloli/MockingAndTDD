@@ -28,14 +28,14 @@ public class AxeTests
     public void Attack_WithDurabilityPointsEqualToOrLessThanZero_ShouldThrowInvalidOperationException(int durabilityPoints)
     {
         var axe = new Axe(50, durabilityPoints);
-        var fakeDummy = new FakeDummy();
+        var fakeDummy = new FakeTarget();
         var ex = Assert.Throws<InvalidOperationException>(() => axe.Attack(fakeDummy));
         StringAssert.Contains("Axe is broken", ex.Message);
     }
     [Test]
     public void Attack_DurabilityPointsShouldDecreaseByOneAfterAttack()
     {
-        var fakeDummy = new FakeDummy();
+        var fakeDummy = new FakeTarget();
         var expected = durability - 1;
         axe.Attack(fakeDummy);
         var actual = axe.DurabilityPoints;

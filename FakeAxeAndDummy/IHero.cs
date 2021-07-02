@@ -1,8 +1,7 @@
 ﻿namespace FakeAxeAndDummy
 {
-    public interface IWeapon
+    public interface IHero
     {
-        public bool IsAttackCalled { get; set; }
         public void Attack(ITarget target);
     }
 }
