@@ -8,19 +8,12 @@ public class HeroTests
 {
     private const string name = "Jack";
     private const int defaultExperience = 0;
-    private IWeapon fakeWeapon;
-    private ITarget fakeTarget;
     private Hero hero;
-    [SetUp]
-    public void SetUp()
-    {
-        fakeWeapon = new FakeWeapon();
-        fakeTarget = new FakeTarget();
-        hero = new HeroFactory().CreateHero(name);
-    }
+
     [Test]
     public void Constructor_WithValidParameter_ShouldSetFieldsCorrectly()
     {
+        hero = new HeroFactory().CreateHero(name);
         var heroName = hero.Name;
         var experience = hero.Experience;
         var weapon = hero.Weapon;
@@ -32,21 +25,27 @@ public class HeroTests
     [Test]
     public void Attack_WithValidTargetParameter_ShouldCallWeaponsAttackMethodOnce()
     {
-        hero = new Hero(name, fakeWeapon);
+        var mockedWeapon = new Mock<IWeapon>();
+        var mockedTarget = new Mock<ITarget>();
+        hero = new Hero(name, mockedWeapon.Object);
         
-        hero.Attack(fakeTarget);
+        hero.Attack(mockedTarget.Object);
         
-        Assert.IsTrue(fakeWeapon.IsAttackCalled);
+        mockedWeapon.Verify(x => x.Attack(It.IsAny<ITarget>()), Times.Once);
     }
     [Test]
     public void Attack_TargetIsDeadAfterAttack_HeroShouldGainExperience()
     {
-        hero = new Hero(name, fakeWeapon);
+        var mockedWeapon = new Mock<IWeapon>().Object;
+        var mockedTarget = new Mock<ITarget>();
+        mockedTarget.Setup(x => x.IsDead()).Returns(true);
+        mockedTarget.Setup(x => x.GiveExperience()).Returns(10);
+        hero = new Hero(name, mockedWeapon);
         
-        hero.Attack(fakeTarget);
+        hero.Attack(mockedTarget.Object);
+        
         var expected = defaultExperience + 10;
         var actual = hero.Experience;
-        
         Assert.AreEqual(expected, actual);
     }
 }
