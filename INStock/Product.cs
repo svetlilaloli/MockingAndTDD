@@ -43,6 +43,6 @@ namespace INStock
                 price = value;
             }
         }
-        public int Quantity { get; private set; }
+        internal int Quantity { get; private set; }
     }
 }
