@@ -9,8 +9,9 @@ namespace INStock.Tests
         public void Constructor_WithValidParameters_ShouldSetFieldsCorrectly(string name, decimal price)
         {
             var product = new Product(name, price);
-            Assert.AreEqual(name, product.Name);
+            Assert.AreEqual(name, product.Label);
             Assert.AreEqual(price, product.Price);
+            Assert.AreEqual(0, product.Quantity);
         }
         [TestCase("", 19.98)]
         [TestCase(" ", 12.76)]
