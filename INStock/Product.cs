@@ -2,7 +2,7 @@
 
 namespace INStock
 {
-    public class Product
+    public class Product : IProduct
     {
         private string name;
         private decimal price;
