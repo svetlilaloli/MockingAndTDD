@@ -51,7 +51,7 @@ namespace INStock
             throw new NotImplementedException();
         }
 
-        public ICollection<IProduct> FindAllInPriceRange(decimal start, decimal end)
+        public IEnumerable<IProduct> FindAllInPriceRange(decimal start, decimal end)
         {
             throw new NotImplementedException();
         }
