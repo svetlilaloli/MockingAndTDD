@@ -4,18 +4,18 @@ namespace INStock
 {
     public class Product : IProduct
     {
-        private string name;
+        private string label;
         private decimal price;
-        public Product(string name, decimal price)
+        public Product(string label, decimal price)
         {
-            Name = name;
+            Label = label;
             Price = price;
         }
-        public string Name 
+        public string Label 
         {
             get
             {
-                return name;
+                return label;
             }
 
             private set
@@ -24,7 +24,7 @@ namespace INStock
                 {
                     throw new ArgumentException("Product name cannot be empty");
                 }
-                name = value;
+                label = value;
             }
         }
         public decimal Price 
