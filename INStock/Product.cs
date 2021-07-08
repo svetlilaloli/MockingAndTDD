@@ -10,6 +10,7 @@ namespace INStock
         {
             Label = label;
             Price = price;
+            Quantity = 0;
         }
         public string Label 
         {
@@ -42,5 +43,6 @@ namespace INStock
                 price = value;
             }
         }
+        public int Quantity { get; private set; }
     }
 }
