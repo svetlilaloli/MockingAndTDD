@@ -5,12 +5,12 @@ namespace INStock.Tests
     using System;
     public class ProductTests
     {
-        [Test]
-        public void Constructor_WithValidParameters_ShouldSetFieldsCorrectly()
+        [TestCase("wine", 9.99)]
+        public void Constructor_WithValidParameters_ShouldSetFieldsCorrectly(string name, decimal price)
         {
-            var product = new Product("wine", 8.99M);
-            Assert.AreEqual("wine", product.Name);
-            Assert.AreEqual(8.99M, product.Price);
+            var product = new Product(name, price);
+            Assert.AreEqual(name, product.Name);
+            Assert.AreEqual(price, product.Price);
         }
         [TestCase("", 19.98)]
         [TestCase(" ", 12.76)]
