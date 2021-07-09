@@ -12,7 +12,7 @@
             Label = label;
             Price = price;
         }
-        public string Label { get; set; }
-        public decimal Price { get; set; }
+        public string Label { get; internal set; }
+        public decimal Price { get; internal set; }
     }
 }

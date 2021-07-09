@@ -1,49 +1,76 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace INStock
 {
-    public class ProductStock : IProductStock
+    public class ProductStock : IProductStock, IEnumerable<Product>
     {
-        private int quantity;
-        private IProduct[] products;
-        public int Count => throw new NotImplementedException();
+        private List<IProduct> products;
+        public ProductStock()
+        {
+            products = new List<IProduct>();
+        }
+        public int Count => products.Count;
         public IProduct this[int index] 
         {
             get
             {
-                if (index < 0 || index >= products.Length)
+                if (index < 0 || index >= products.Count)
+                {
                     throw new IndexOutOfRangeException("Index out of range");
-
+                }
                 return products[index];
             }
             set
             {
-                if (index < 0 || index >= products.Length)
+                if (index < 0 || index >= products.Count)
+                {
                     throw new IndexOutOfRangeException("Index out of range");
-
+                }
                 products[index] = value;
             }
         }
         public void Add(IProduct product)
         {
-            throw new NotImplementedException();
+            if (product == null)
+            {
+                throw new ArgumentNullException("Product cannot be null");
+            }
+            var existingProduct = products.Find(x => x.Label.ToLower().Trim() == product.Label.ToLower().Trim());
+            if (existingProduct != null)
+            {
+                throw new ArgumentException("This product is already in stock");
+            }
+            products.Add(product);
         }
 
         public bool Contains(IProduct product)
         {
-            throw new NotImplementedException();
+            if (product == null)
+            {
+                throw new ArgumentNullException("Product cannot be null");
+            }
+            var existingProduct = products.Find(x => x.Label.ToLower().Trim() == product.Label.ToLower().Trim());
+            if (existingProduct != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         public IProduct Find(int index)
         {
-            throw new NotImplementedException();
+            if (index < 0 || index > products.Count - 1)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            return products[index];
         }
 
-        public ICollection<IProduct> FindAllByPrice(decimal price)
+        public IEnumerable<IProduct> FindAllByPrice(decimal price)
         {
-            throw new NotImplementedException();
+            return products.FindAll(p => p.Price == price);
         }
 
         public IEnumerable<IProduct> FindAllByQuantity(int quantity)
@@ -58,10 +85,25 @@ namespace INStock
 
         public IProduct FindByLabel(string label)
         {
-            throw new NotImplementedException();
+            var foundProduct = products.Find(p => p.Label.ToLower().Trim() == label.ToLower().Trim());
+            if (foundProduct == null)
+            {
+                throw new ArgumentException("No such product in stock");
+            }
+            return foundProduct;
         }
 
         public IProduct FindMostExpensiveProduct()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerator<Product> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
         {
             throw new NotImplementedException();
         }

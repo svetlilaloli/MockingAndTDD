@@ -3,90 +3,101 @@
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
+    //using System.Collections.ObjectModel;
     using System.Linq;
 
     public class ProductStockTests
     {
-        [Test]
-        public void Add_WithNullParameter_ShouldThrowArgumentNullException()
+        private IProductStock stock;
+        [SetUp]
+        public void SetUp()
         {
-            var stock = new ProductStock();
-            Assert.Throws<ArgumentNullException>(() => stock.Add(null));
+            stock = new ProductStock();
         }
         [Test]
-        public void Add_WithValidParameter_ShouldAddTheProduct()
+        public void Count_ShouldReturnProductsInStockCount()
         {
-            var stock = new ProductStock();
+            var actual = stock.Count;
+            Assert.AreEqual(0, actual);
+        }
+        [Test]
+        public void Add_NullProduct_ShouldThrowArgumentNullException()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => stock.Add(null));
+            StringAssert.Contains("Product cannot be null", ex.Message);
+        }
+        [Test]
+        public void Add_ProductAlreadyInStock_ShouldThrowArgumentException()
+        {
+            stock.Add(new FakeProduct());
+            var ex = Assert.Throws<ArgumentException>(() => stock.Add(new FakeProduct()));
+            StringAssert.Contains("This product is already in stock", ex.Message);
+        }
+        [Test]
+        public void Add_ValidProductNotInStock_ShouldAddTheProduct()
+        {
             stock.Add(new FakeProduct());
             var expected = 1;
             var actual = stock.Count;
             Assert.AreEqual(expected, actual);
         }
         [Test]
-        public void Contains_WithNullParameter_ShouldThrowArgumentNullException()
+        public void Contains_WhenProductParameterIsNull_ShouldThrowArgumentNullException()
         {
-            var stock = new ProductStock();
             Assert.Throws<ArgumentNullException>(() => stock.Contains(null));
         }
         [Test]
-        public void Contains_WithValidParameterAlreadyAddedToTheStock_ShouldReturnTrue()
+        public void Contains_ValidProductInStock_ShouldReturnTrue()
         {
-            var stock = new ProductStock();
             var product = new FakeProduct();
             stock.Add(product);
             var actual = stock.Contains(product);
             Assert.IsTrue(actual);
         }
         [Test]
-        public void Contains_WithValidParameterNotAddedToTheStock_ShouldReturnFalse()
+        public void Contains_ValidProductNotInStock_ShouldReturnFalse()
         {
-            var stock = new ProductStock();
             var product = new FakeProduct();
             var actual = stock.Contains(product);
             Assert.IsFalse(actual);
         }
         [TestCase(-1)]
         [TestCase(333)]
-        public void Find_WithInvalidIndexParameter_ShouldThrowIndexOutOfRangeException(int index)
+        public void Find_InvalidIndexParameter_ShouldThrowIndexOutOfRangeException(int index)
         {
-            var stock = new ProductStock();
             Assert.Throws<IndexOutOfRangeException>(() => stock.Find(index));
         }
         [Test]
-        public void Find_WithValidIndexParameter_ShouldReturnTheCorrespondingProduct()
+        public void Find_ValidIndexParameter_ShouldReturnTheCorrespondingProduct()
         {
-            var stock = new ProductStock();
-            stock.Add(new FakeProduct());
+            var product = new FakeProduct();
+            stock.Add(product);
             var actual = stock.Find(0);
-            Assert.IsTrue(new FakeProduct().Equals(actual));
+            Assert.IsTrue(product.Equals(actual));
         }
         [Test]
         public void FindByLabel_WhenNotFound_ShouldThrowArgumentException()
         {
-            var stock = new ProductStock();
-            Assert.Throws<ArgumentException>(() => stock.FindByLabel("some label"));
+            var ex = Assert.Throws<ArgumentException>(() => stock.FindByLabel("some label"));
+            StringAssert.Contains("No such product in stock", ex.Message);
         }
         [Test]
-        public void FindByLabel_WhenFound_ShouldReturnTheProductWithTheGivenLabel()
+        public void FindByLabel_WhenFound_ShouldReturnTheCorrectProduct()
         {
-            var stock = new ProductStock();
             stock.Add(new FakeProduct());
             var actual = stock.FindByLabel("Chocolate 100g");
-            Assert.IsTrue(new FakeProduct() == actual);
+            Assert.IsTrue(new FakeProduct().Label == actual.Label);
         }
         [Test]
         public void FindAllInPriceRange_WhenNoProductsInTheRange_ShouldReturnEmptyCollection()
         {
-            var stock = new ProductStock();
-            var expected = new Collection<IProduct>();
+            var expected = new List<IProduct>();
             var actual = stock.FindAllInPriceRange(0, 10);
             Assert.AreEqual(expected, actual);
         }
         [Test]
         public void FindAllInPriceRange_WhenProductsAreFound_ShouldReturnCollectionInDescendingOrder()
         {
-            var stock = new ProductStock();
             var fakeProduct1 = new FakeProduct();
             var fakeProduct2 = new FakeProduct("Watermelon kg", 0.98M);
             stock.Add(fakeProduct1);
@@ -99,14 +110,22 @@
         [Test]
         public void FindAllByPrice_WhenNoMatchingProductsAreFound_ShouldReturnEmptyCollection()
         {
-            var stock = new ProductStock();
-            var expected = new Collection<IProduct>();
+            var expected = new List<IProduct>();
             var actual = stock.FindAllByPrice(10);
+            Assert.AreEqual(expected, actual);
+        }
+        [Test]
+        public void FindAllByPrice_WhenProductsAreFound_ShouldReturnCollectionWithFoundProducts()
+        {
+            var fakeProduct1 = new FakeProduct();
+            var fakeProduct2 = new FakeProduct("bread", 1.9M);
+            var expected = new List<IProduct>(){ fakeProduct1, fakeProduct2 };
+
+            var actual = stock.FindAllByPrice(1.9M);
             Assert.AreEqual(expected, actual);
         }
         public void FindAllInPriceRange_WhenMatchingProductsAreFound_ShouldReturnCollectionOfTheMatchingProducts()
         {
-            var stock = new ProductStock();
             var fakeProduct1 = new FakeProduct();
             var fakeProduct2 = new FakeProduct("Watermelon kg", 1.9M);
             stock.Add(fakeProduct1);
@@ -119,14 +138,12 @@
         [Test]
         public void FindMostExpensiveProduct_WhenTheCollectionIsEmpty_ShouldReturnNull()
         {
-            var stock = new ProductStock();
             var actual = stock.FindMostExpensiveProduct();
             Assert.IsNull(actual);
         }
         [Test]
         public void FindMostExpensiveProduct_WhenTheCollectionIsNotEmpty_ShouldReturnTheMostExpensiveProduct()
         {
-            var stock = new ProductStock();
             var fakeProduct1 = new FakeProduct();
             var fakeProduct2 = new FakeProduct("Watermelon kg", 0.98M);
             stock.Add(fakeProduct1);
@@ -137,15 +154,13 @@
         [Test]
         public void FindAllByQuantity_WhenNoProductsWithTheGivenQuantityAreFound_ShouldReturnEmptyEnumeration()
         {
-            var stock = new ProductStock();
-            var expected = new Collection<Product>();
+            var expected = new List<Product>();
             var actual = stock.FindAllByQuantity(10);
             Assert.AreEqual(expected, actual);
         }
         [Test]
         public void FindAllByQuantity_WhenProductsWithTheGivenQuantityAreFound_ShouldReturnAllProductsWithTheGivenQuantity()
         {
-            var stock = new ProductStock();
             var fakeProduct1 = new FakeProduct();
             var fakeProduct2 = new FakeProduct("Watermelon kg", 0.98M);
             stock.Add(fakeProduct1);
