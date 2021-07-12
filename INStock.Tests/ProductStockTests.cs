@@ -9,10 +9,14 @@
     public class ProductStockTests
     {
         private IProductStock stock;
+        private IProduct fakeProduct1;
+        private IProduct fakeProduct2;
         [SetUp]
         public void SetUp()
         {
             stock = new ProductStock();
+            fakeProduct1 = new FakeProduct();
+            fakeProduct2 = new FakeProduct("Watermelon kg", 1.98M, 1);
         }
         [Test]
         public void Count_ShouldReturnProductsInStockCount()
@@ -29,14 +33,14 @@
         [Test]
         public void Add_ProductAlreadyInStock_ShouldThrowArgumentException()
         {
-            stock.Add(new FakeProduct());
-            var ex = Assert.Throws<ArgumentException>(() => stock.Add(new FakeProduct()));
+            stock.Add(fakeProduct1);
+            var ex = Assert.Throws<ArgumentException>(() => stock.Add(fakeProduct1));
             StringAssert.Contains("This product is already in stock", ex.Message);
         }
         [Test]
         public void Add_ValidProductNotInStock_ShouldAddTheProduct()
         {
-            stock.Add(new FakeProduct());
+            stock.Add(fakeProduct1);
             var expected = 1;
             var actual = stock.Count;
             Assert.AreEqual(expected, actual);
@@ -49,16 +53,14 @@
         [Test]
         public void Contains_ValidProductInStock_ShouldReturnTrue()
         {
-            var product = new FakeProduct();
-            stock.Add(product);
-            var actual = stock.Contains(product);
+            stock.Add(fakeProduct1);
+            var actual = stock.Contains(fakeProduct1);
             Assert.IsTrue(actual);
         }
         [Test]
         public void Contains_ValidProductNotInStock_ShouldReturnFalse()
         {
-            var product = new FakeProduct();
-            var actual = stock.Contains(product);
+            var actual = stock.Contains(fakeProduct1);
             Assert.IsFalse(actual);
         }
         [TestCase(-1)]
@@ -70,10 +72,9 @@
         [Test]
         public void Find_ValidIndexParameter_ShouldReturnTheCorrespondingProduct()
         {
-            var product = new FakeProduct();
-            stock.Add(product);
+            stock.Add(fakeProduct1);
             var actual = stock.Find(0);
-            Assert.IsTrue(product.Equals(actual));
+            Assert.IsTrue(fakeProduct1.Equals(actual));
         }
         [Test]
         public void FindByLabel_WhenNotFound_ShouldThrowArgumentException()
@@ -84,9 +85,9 @@
         [Test]
         public void FindByLabel_WhenFound_ShouldReturnTheCorrectProduct()
         {
-            stock.Add(new FakeProduct());
+            stock.Add(fakeProduct1);
             var actual = stock.FindByLabel("Chocolate 100g");
-            Assert.IsTrue(new FakeProduct().Label == actual.Label);
+            Assert.IsTrue(fakeProduct1.Label == actual.Label);
         }
         [Test]
         public void FindAllInPriceRange_WhenNoProductsInTheRange_ShouldReturnEmptyCollection()
@@ -98,12 +99,9 @@
         [Test]
         public void FindAllInPriceRange_WhenProductsAreFound_ShouldReturnCollectionInDescendingOrder()
         {
-            var fakeProduct1 = new FakeProduct();
-            var fakeProduct2 = new FakeProduct("Watermelon kg", 0.98M);
             stock.Add(fakeProduct1);
             stock.Add(fakeProduct2);
-
-            var actual = (IEnumerable<Product>)stock.FindAllInPriceRange(0, 2);
+            var actual = stock.FindAllInPriceRange(0, 2);
 
             Assert.IsTrue(actual.ElementAt(0).Price > actual.ElementAt(1).Price);
         }
@@ -117,23 +115,12 @@
         [Test]
         public void FindAllByPrice_WhenProductsAreFound_ShouldReturnCollectionWithFoundProducts()
         {
-            var fakeProduct1 = new FakeProduct();
-            var fakeProduct2 = new FakeProduct("bread", 1.9M);
-            var expected = new List<IProduct>(){ fakeProduct1, fakeProduct2 };
+            stock.Add(fakeProduct1);
+            stock.Add(fakeProduct2);
+            var expected = new List<IProduct>(){ fakeProduct1 };
 
             var actual = stock.FindAllByPrice(1.9M);
             Assert.AreEqual(expected, actual);
-        }
-        public void FindAllInPriceRange_WhenMatchingProductsAreFound_ShouldReturnCollectionOfTheMatchingProducts()
-        {
-            var fakeProduct1 = new FakeProduct();
-            var fakeProduct2 = new FakeProduct("Watermelon kg", 1.9M);
-            stock.Add(fakeProduct1);
-            stock.Add(fakeProduct2);
-
-            var actual = stock.FindAllByPrice(1.9M);
-
-            Assert.IsTrue(typeof(ICollection<IProduct>) == actual.GetType());
         }
         [Test]
         public void FindMostExpensiveProduct_WhenTheCollectionIsEmpty_ShouldReturnNull()
@@ -144,12 +131,10 @@
         [Test]
         public void FindMostExpensiveProduct_WhenTheCollectionIsNotEmpty_ShouldReturnTheMostExpensiveProduct()
         {
-            var fakeProduct1 = new FakeProduct();
-            var fakeProduct2 = new FakeProduct("Watermelon kg", 0.98M);
             stock.Add(fakeProduct1);
             stock.Add(fakeProduct2);
             var actual = stock.FindMostExpensiveProduct();
-            Assert.AreEqual(fakeProduct1.Price, actual);
+            Assert.AreEqual(fakeProduct2.Price, actual.Price);
         }
         [Test]
         public void FindAllByQuantity_WhenNoProductsWithTheGivenQuantityAreFound_ShouldReturnEmptyEnumeration()
@@ -161,8 +146,6 @@
         [Test]
         public void FindAllByQuantity_WhenProductsWithTheGivenQuantityAreFound_ShouldReturnAllProductsWithTheGivenQuantity()
         {
-            var fakeProduct1 = new FakeProduct();
-            var fakeProduct2 = new FakeProduct("Watermelon kg", 0.98M);
             stock.Add(fakeProduct1);
             stock.Add(fakeProduct2);
             var expected = new List<IProduct>() { fakeProduct1, fakeProduct2 };

@@ -6,11 +6,12 @@ namespace INStock
     {
         private string label;
         private decimal price;
-        public Product(string label, decimal price)
+        private int quantity;
+        public Product(string label, decimal price, int quantity)
         {
             Label = label;
             Price = price;
-            Quantity = 0;
+            Quantity = quantity;
         }
         public string Label 
         {
@@ -43,6 +44,20 @@ namespace INStock
                 price = value;
             }
         }
-        public int Quantity { get; private set; }
+        public int Quantity 
+        {
+            get
+            {
+                return quantity;
+            }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Product quantity cannot be a negative number");
+                }
+                quantity = value;
+            }
+        }
     }
 }

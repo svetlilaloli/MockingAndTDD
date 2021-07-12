@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace INStock
 {
@@ -75,12 +76,12 @@ namespace INStock
 
         public IEnumerable<IProduct> FindAllByQuantity(int quantity)
         {
-            throw new NotImplementedException();
+            return products.FindAll(p => p.Quantity == quantity);
         }
 
         public IEnumerable<IProduct> FindAllInPriceRange(decimal start, decimal end)
         {
-            throw new NotImplementedException();
+            return products.FindAll(p => p.Price >= start && p.Price <= end).OrderByDescending(p => p.Price);
         }
 
         public IProduct FindByLabel(string label)
@@ -95,17 +96,16 @@ namespace INStock
 
         public IProduct FindMostExpensiveProduct()
         {
-            throw new NotImplementedException();
+            return products.Find(p => p.Price == products.Max(x => x.Price));
         }
 
         public IEnumerator<Product> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return (IEnumerator<Product>)this;
         }
-
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return GetEnumerator();
         }
     }
 }

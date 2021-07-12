@@ -5,22 +5,23 @@ namespace INStock.Tests
     using System;
     public class ProductTests
     {
-        [TestCase("wine", 9.99)]
-        public void Constructor_WithValidParameters_ShouldSetFieldsCorrectly(string name, decimal price)
+        [TestCase("wine", 9.99, 6)]
+        public void Constructor_WithValidParameters_ShouldSetFieldsCorrectly(string name, decimal price, int quantity)
         {
-            var product = new Product(name, price);
+            var product = new Product(name, price, quantity);
             Assert.AreEqual(name, product.Label);
             Assert.AreEqual(price, product.Price);
-            Assert.AreEqual(0, product.Quantity);
+            Assert.AreEqual(quantity, product.Quantity);
         }
-        [TestCase("", 19.98)]
-        [TestCase(" ", 12.76)]
-        [TestCase(null, 5.87)]
-        [TestCase("Magnum icecream", -5)]
-        [TestCase("Bubble gum", 0)]
-        public void Constructor_WithInvalidParameter_ShouldThrowArgumentException(string name, decimal price)
+        [TestCase("", 19.98, 1)]
+        [TestCase(" ", 12.76, 1)]
+        [TestCase(null, 5.87, 1)]
+        [TestCase("Magnum icecream", -5, 1)]
+        [TestCase("Bubble gum", 0, 1)]
+        [TestCase("Davidson icecream", 5, -1)]
+        public void Constructor_WithInvalidParameter_ShouldThrowArgumentException(string name, decimal price, int quantity)
         {
-            Assert.Throws<ArgumentException>(() => new Product(name, price));
+            Assert.Throws<ArgumentException>(() => new Product(name, price, quantity));
         }
     }
 }
