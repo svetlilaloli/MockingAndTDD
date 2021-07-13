@@ -11,12 +11,12 @@ namespace FakeAxeAndDummy.Tests
 
         public bool IsDead()
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public void TakeAttack(int attackPoints)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
