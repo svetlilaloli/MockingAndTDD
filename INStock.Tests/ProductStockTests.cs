@@ -3,7 +3,6 @@
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
-    //using System.Collections.ObjectModel;
     using System.Linq;
 
     public class ProductStockTests
@@ -152,5 +151,34 @@
             var actual = stock.FindAllByQuantity(1);
             Assert.AreEqual(expected, actual);
         }
+        [Test]
+        public void GetEnumerator_ShouldReturnAllProductsInStock()
+        {
+            stock.Add(fakeProduct1);
+            stock.Add(fakeProduct2);
+            var expectedCount = 2;
+            var actualCount = 0;
+            foreach (var product in stock)
+            {
+                actualCount++;
+            }
+            Assert.AreEqual(expectedCount, actualCount);
+        }
+        [Test]
+        public void Indexer_IndexInRange_ShouldReturnTheCorrectProduct()
+        {
+            stock.Add(fakeProduct1);
+            stock.Add(fakeProduct2);
+            var expected = fakeProduct2;
+            var actual = stock[1];
+            Assert.AreEqual(expected, actual);
+        }
+        [Test]
+        public void Indexer_IndexOutOfRange_ShouldThrowIndexOutOfRangeException()
+        {
+            var product = new FakeProduct();
+            var ex = Assert.Throws<IndexOutOfRangeException>(() => product = (FakeProduct)stock[1]);
+            StringAssert.Contains("Index out of range", ex.Message);
+        }        
     }
 }

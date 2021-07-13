@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace INStock
 {
-    public interface IProductStock
+    public interface IProductStock : IEnumerable<IProduct>
     {
         public int Count { get; }
         public void Add(IProduct product);
@@ -13,5 +14,6 @@ namespace INStock
         public IEnumerable<IProduct> FindAllByPrice(decimal price);
         public IProduct FindMostExpensiveProduct();
         public IEnumerable<IProduct> FindAllByQuantity(int quantity);
+        IProduct this[int index] { get; set; }
     }
 }

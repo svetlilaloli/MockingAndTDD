@@ -18,7 +18,7 @@ namespace INStock.Tests
         [TestCase(null, 5.87, 1)]
         [TestCase("Magnum icecream", -5, 1)]
         [TestCase("Bubble gum", 0, 1)]
-        [TestCase("Davidson icecream", 5, -1)]
+        [TestCase("Bread", 1.19, -1)]
         public void Constructor_WithInvalidParameter_ShouldThrowArgumentException(string name, decimal price, int quantity)
         {
             Assert.Throws<ArgumentException>(() => new Product(name, price, quantity));

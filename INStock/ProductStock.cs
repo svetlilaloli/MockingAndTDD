@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace INStock
 {
-    public class ProductStock : IProductStock, IEnumerable<Product>
+    public class ProductStock : IProductStock
     {
         private List<IProduct> products;
         public ProductStock()
@@ -99,10 +99,14 @@ namespace INStock
             return products.Find(p => p.Price == products.Max(x => x.Price));
         }
 
-        public IEnumerator<Product> GetEnumerator()
+        public IEnumerator<IProduct> GetEnumerator()
         {
-            return (IEnumerator<Product>)this;
+            for (int i = 0; i < products.Count; i++)
+            {
+                yield return products[i];
+            }
         }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
